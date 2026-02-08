@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For My Love ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      background:
+        linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+        url("us.jpg") no-repeat center center / cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 30px;
+      border-radius: 22px;
+      text-align: center;
+      max-width: 380px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+      animation: fadeIn 1s ease;
+    }
+
+    h1 {
+      color: #ffffff;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+    }
+
+    p {
+      color: #f1f1f1;
+      font-size: 16px;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+    }
+
+    .btn {
+      margin-top: 15px;
+      padding: 12px 26px;
+      border: none;
+      border-radius: 30px;
+      background: #ff4d6d;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      transition: transform 0.2s;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+    }
+
+    .no-btn {
+      background: #555;
+      position: absolute;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .float {
+      position: fixed;
+      bottom: -10px;
+      animation: float 4s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ❤️ Valentine -->
+<div class="card" id="valentine">
+  <h1>Hey My Love ❤️</h1>
+  <p>You turned ordinary moments into magic.</p>
+  <button class="btn" onclick="goToRose()">Will you be my Valentine? 💖</button>
+</div>
+
+<!-- 🌹 Rose Day -->
+<div class="card hidden" id="rose">
+  <h1>Happy Rose Day 🌹</h1>
+  <p>This rose holds my love, trust, and heart.</p>
+  <button class="btn" onclick="goToPropose()">This rose is for you 🌹</button>
+</div>
+
+<!-- 💍 Propose Day -->
+<div class="card hidden" id="propose">
+  <h1>Happy Propose Day 💍</h1>
+  <p>I don’t want a perfect life…</p>
+  <p>I just want *you* in my life.</p>
+
+  <button class="btn" onclick="heSaidYes()">YES, ALWAYS 💖</button>
+  <button class="btn no-btn" id="noBtn">No 🙈</button>
+</div>
+
+<!-- 💕 Final Screen -->
+<div class="card hidden" id="final">
+  <h1>He Said YES 💕</h1>
+  <p>And my heart chose you — forever.</p>
+</div>
+
+<script>
+  function goToRose() {
+    const music = document.getElementById("bgMusic");
+    music.currentTime = 30;
+    music.play();
+
+    document.getElementById("valentine").classList.add("hidden");
+    document.getElementById("rose").classList.remove("hidden");
+    release("❤️", 20);
+  }
+
+  function goToPropose() {
+    document.getElementById("rose").classList.add("hidden");
+    document.getElementById("propose").classList.remove("hidden");
+    release("🌹", 20);
+
+    const noBtn = document.getElementById("noBtn");
+    noBtn.addEventListener("mouseover", moveNoButton);
+  }
+
+  function moveNoButton() {
+    const btn = document.getElementById("noBtn");
+    btn.style.left = Math.random() * 70 + "%";
+    btn.style.top = Math.random() * 70 + "%";
+  }
+
+  function heSaidYes() {
+    document.getElementById("propose").classList.add("hidden");
+    document.getElementById("final").classList.remove("hidden");
+
+    release("💍", 25);
+    release("❤️", 30);
+    release("✨", 20);
+  }
+
+  function release(symbol, count) {
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement("div");
+      el.className = "float";
+      el.innerHTML = symbol;
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.fontSize = Math.random() * 20 + 18 + "px";
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 4000);
+    }
+  }
+</script>
+
+</body>
+</html>
